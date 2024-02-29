@@ -12,6 +12,8 @@ namespace RE23_FranGV
         // CONSTANTES
 
         protected const string DEFAULT_CONSTRUCTOR = "Desconocido";
+        protected const float DEFAULT_CONSTRUCTOR_NUM = 0;
+
 
         // SALARIO
 
@@ -26,6 +28,27 @@ namespace RE23_FranGV
         
 
         // CONSTRUCTORES
+
+        public Programador()
+        {
+            _nombre = DEFAULT_CONSTRUCTOR;
+            _apellidos = DEFAULT_CONSTRUCTOR;
+            _salario = DEFAULT_CONSTRUCTOR_NUM;
+        }
+
+        public Programador(string name, string secondname)
+        {
+            Nombre = name;
+            Apellidos = secondname;
+            _salario = DEFAULT_CONSTRUCTOR_NUM;
+        }
+
+        public Programador(string name, string secondname, float sal)
+        {
+            Nombre= name;
+            Apellidos = secondname;
+            Salario = sal;
+        }
 
         // PROPIEDADES
 
@@ -63,6 +86,9 @@ namespace RE23_FranGV
             }
             set
             {
+                // VALIDACIÓN
+                ValidarMaximos(value, SAL_MAX, SAL_MÌN);
+                // ESCRITURA
                 _salario = value;
             }
         }
@@ -86,6 +112,13 @@ namespace RE23_FranGV
 
             if (cadena.All(char.IsLetter)) throw new Exception();
         }
+
+        private static void ValidarMaximos(float num, int MAX, int MIN)
+        {
+            if (num > MAX) throw new Exception("Valor mayor al rango de valores establecido.");
+            if (num < MIN) throw new Exception("Valor menor al rango de valores establecido.");
+        }
+
     }
 
 
