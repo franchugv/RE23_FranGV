@@ -12,13 +12,13 @@ namespace RE23_FranGV
         // CONSTANTES
 
         protected const string DEFAULT_CONSTRUCTOR = "Desconocido";
-        protected const float DEFAULT_CONSTRUCTOR_NUM = 0;
+        protected const float DEFAULT_CONSTRUCTOR_NUM = 1000;
 
 
         // SALARIO
 
         private const int SAL_MAX = 10000;
-        private const int SAL_MÌN = 1000;
+        private const int SAL_MIN = 1000;
 
         // MIEMBROS
 
@@ -36,17 +36,15 @@ namespace RE23_FranGV
             _salario = DEFAULT_CONSTRUCTOR_NUM;
         }
 
-        public Programador(string name, string secondname)
+        public Programador(string name, string secondname) : this ()
         {
             Nombre = name;
             Apellidos = secondname;
-            _salario = DEFAULT_CONSTRUCTOR_NUM;
         }
 
-        public Programador(string name, string secondname, float sal)
+        public Programador(float sal, string name, string secondname) : this(name, secondname) 
         {
-            Nombre= name;
-            Apellidos = secondname;
+
             Salario = sal;
         }
 
@@ -60,8 +58,10 @@ namespace RE23_FranGV
             }
             set
             {
-                ConvertirMayuscula(value);
-                _nombre = value;
+
+
+                _nombre = ConvertirMayuscula(value);
+
             }
         }
 
@@ -73,8 +73,8 @@ namespace RE23_FranGV
             }
             set
             {
-                ConvertirMayuscula(value);
-                _apellidos = value;
+                _apellidos = ConvertirMayuscula(value);
+
             }
         }
 
@@ -87,7 +87,7 @@ namespace RE23_FranGV
             set
             {
                 // VALIDACIÓN
-                ValidarMaximos(value, SAL_MAX, SAL_MÌN);
+                ValidarMaximos(value, SAL_MAX, SAL_MIN);
                 // ESCRITURA
                 _salario = value;
             }
@@ -113,7 +113,7 @@ namespace RE23_FranGV
             if (cadena.All(char.IsLetter)) throw new Exception();
         }
 
-        private static void ValidarMaximos(float num, int MAX, int MIN)
+        protected static void ValidarMaximos(float num, float MAX, float MIN)
         {
             if (num > MAX) throw new Exception("Valor mayor al rango de valores establecido.");
             if (num < MIN) throw new Exception("Valor menor al rango de valores establecido.");
