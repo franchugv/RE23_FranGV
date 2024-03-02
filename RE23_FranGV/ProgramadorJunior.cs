@@ -9,6 +9,7 @@ namespace RE23_FranGV
     public class ProgramadorJunior : Programador
     {
         // CONSTANTES
+        private const float MIN_BONUS = 0;
 
         private const float DEFAULT_BONUS = 100;
 
@@ -25,15 +26,15 @@ namespace RE23_FranGV
             _bonus = DEFAULT_BONUS;
         }
 
-        public ProgramadorJunior(string name, string secondname, float sal) : this()
+        public ProgramadorJunior(string name, string secondname) : this()
         {
             Nombre = name;
             Apellidos = secondname;
-            Salario = sal;
         }
-        public ProgramadorJunior(string name, string secondname, float bonus, float sal) : this(name, secondname, sal)
+        public ProgramadorJunior(string name, string secondname, float sal, float bonus) : base(name, secondname)
         {
             Bonus = bonus;
+            Salario = sal;
         }
 
         // PROPIEDADES
@@ -60,7 +61,7 @@ namespace RE23_FranGV
             }
             set
             {
-                Programador.ValidarMaximos(value, MAX_BONUS, 0);
+                Programador.ValidarMaximos(value, MAX_BONUS, MIN_BONUS); // Coge el método de validación de la clase padre
                 _bonus = value;
             }
         }
@@ -69,9 +70,11 @@ namespace RE23_FranGV
 
         private float CalcularSalario()
         {
-            // return Salario * 1.10f;
+            // return Salario * 1.10f;  Esto provoca un bucle
             return base.Salario * 1.10f;
 
         }
+
+       
     }
 }
